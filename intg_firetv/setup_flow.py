@@ -52,6 +52,11 @@ class FireTVSetupFlow(BaseSetupFlow[FireTVConfig]):
                     "label": {"en": "Port (default: 8080)"},
                     "field": {"text": {"value": "8080"}},
                 },
+                {
+                    "id": "encodeBackup",
+                    "label": {"en": "Base64 encode backup"},
+                    "field": {"checkbox": {"value": True}},
+                }
             ]
         )
 
@@ -161,6 +166,7 @@ class FireTVSetupFlow(BaseSetupFlow[FireTVConfig]):
         host = self._temp_host
         port = self._temp_port
         name = input_values.get("name", f"Fire TV ({host})").strip()
+        encode_backup = input_values.get("encodeBackup",False)
 
         _LOG.info("Step 3: Verifying PIN '%s' with Fire TV", pin)
 
@@ -189,7 +195,8 @@ class FireTVSetupFlow(BaseSetupFlow[FireTVConfig]):
                 name=name,
                 host=host,
                 port=port,
-                token=token
+                token=token,
+                encodeBackup=encode_backup
             )
 
             _LOG.info("Setup completed successfully for %s", name)
@@ -215,8 +222,12 @@ class FireTVSetupFlow(BaseSetupFlow[FireTVConfig]):
 
         try:
             config_json = self.config.get_backup_json()
-            encoded_data = base64.b64encode(config_json.encode("utf-8")).decode("ascii")
-
+            config_all = self.config.all()
+            encode_backup: bool = True in [item.get('encodeBackup') == True for item in config_all]
+            if encode_backup:
+                encoded_data = base64.b64encode(config_json.encode("utf-8")).decode("ascii")
+            else:
+                encoded_data = config_json.encode("utf-8")
             return RequestUserInput(
                 {"en": "Configuration Backup"},
                 [

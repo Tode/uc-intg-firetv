@@ -1,6 +1,6 @@
 {
   "driver_id": "firetv",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "min_core_api": "0.22.0",
   "name": {
     "en": "Fire TV"
@@ -49,6 +49,17 @@
             "value": 8080,
             "min": 1024,
             "max": 65535
+          }
+        }
+      },
+      {
+        "id": "encodeBackup",
+        "label": {
+            "en": "Base64 encode backup"
+        },
+        "field": {
+          "checkbox": {
+            "value": false
           }
         }
       }

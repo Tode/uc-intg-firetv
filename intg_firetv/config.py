@@ -18,6 +18,7 @@ class FireTVConfig:
     host: str
     port: int = 8080
     token: str = ""
+    encodeBackup: bool = True
 
 
 class FireTVConfigManager(BaseConfigManager[FireTVConfig]):
