@@ -29,13 +29,13 @@
             "id": "info",
             "label": {
                 "en": "Connect to Fire TV device",
-                "de": "Verbinde zu Fire TV Gerät",
+                "de": "Verbinde zu Fire TV Gerät"
             },
             "field": {
                 "label": {
                     "value": {
                         "en": "Enter values in next dialog",
-                        "de": "Werte im nächsten Dialog ausfüllen",
+                        "de": "Werte im nächsten Dialog ausfüllen"
                     }
                 }
             }
